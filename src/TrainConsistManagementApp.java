@@ -1,16 +1,15 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 class Bogie {
     String name;
     int capacity;
 
-
     Bogie(String name, int capacity) {
         this.name = name;
         this.capacity = capacity;
     }
-
 
     @Override
     public String toString() {
@@ -24,23 +23,20 @@ public class TrainConsistManagementApp {
 
 
         List<Bogie> bogies = new ArrayList<>();
-
-        // Add bogies
         bogies.add(new Bogie("Sleeper", 72));
         bogies.add(new Bogie("AC Chair", 54));
         bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("Luxury", 80));
 
-        System.out.println("Before Sorting:\n");
-        for (Bogie b : bogies) {
-            System.out.println(b);
-        }
+        System.out.println("Original Bogie List:\n");
+        bogies.forEach(System.out::println);
 
 
-        bogies.sort(Comparator.comparingInt(b -> b.capacity));
+        List<Bogie> filteredBogies = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
 
-        System.out.println("\nAfter Sorting by Capacity (Ascending):\n");
-        for (Bogie b : bogies) {
-            System.out.println(b);
-        }
+        System.out.println("\nFiltered Bogies (Capacity > 60):\n");
+        filteredBogies.forEach(System.out::println);
     }
 }
